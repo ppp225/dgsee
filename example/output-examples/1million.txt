@@ -1,0 +1,31 @@
+2020/06/11 13:18:23  [INFO]               |      (C)ardinality |             | [predicate name]                     | [nodes] |(C)| -edges- |(C)| [nodes] |
+2020/06/11 13:18:23  [INFO] -------------------------------------------------------------------------------------------------------------------------------
+2020/06/11 13:18:23  [INFO] Found relation         (-)-(1..173) for predicate [actor.film]                             [70783] (-)--119258-->(n)      [-]
+2020/06/11 13:18:24  [INFO] Found relation     (1..41)-(1..108) for predicate [director.film]                           [1623] (n)<--7391--->(n)   [6356]
+2020/06/11 13:18:24  [INFO] Found relation    (1..3290)-(1..14) for predicate [genre]                                   [6356] (n)<--23679-->(n)    [283]
+2020/06/11 13:18:24  [INFO] Found relation              (-)-(1) for predicate [performance.actor]                     [119258] (-)--119258-->(1)      [-]
+2020/06/11 13:18:25  [INFO] Found relation              (-)-(1) for predicate [performance.character]                 [119258] (-)--119258-->(1)      [-]
+2020/06/11 13:18:25  [INFO] Found relation              (-)-(1) for predicate [performance.film]                      [119258] (-)--119258-->(1)      [-]
+2020/06/11 13:18:25  [INFO] Found relation              (-)-(0) for predicate [performance.special_performance_type]       [0] (-)-----0---->(0)      [-]
+2020/06/11 13:18:25  [INFO] Found relation         (-)-(1..262) for predicate [starring]                                [6356] (-)--119258-->(n)      [-]
+2020/06/11 13:18:25  [INFO] Found relation              (-)-(0) for predicate [type]                                       [0] (-)-----0---->(0)      [-]
+2020/06/11 13:18:25  [INFO] // Example schema consistency check code for this schema:
+func main() {
+var relations = []dgsee.EdgeCardinality{
+{"-", "actor.film", "n"},
+{"n", "director.film", "n"},
+{"n", "genre", "n"},
+{"-", "performance.actor", "1"},
+{"-", "performance.character", "1"},
+{"-", "performance.film", "1"},
+{"-", "performance.special_performance_type", "0"},
+{"-", "starring", "n"},
+{"-", "type", "0"},
+}
+dg := dgNewClient("localhost:9080")
+ctx := context.Background()
+log.Printf("Schema Consistency Check ResultOK=[%t]", RunConsistencyChecks(ctx, dg, relations))
+}
+2020/06/11 13:18:27 [ERROR] Expected edge [performance.special_performance_type] to have relation (-)-(0), but got (-)-(0). Dead edge. No nodes with this edge exist!
+2020/06/11 13:18:27 [ERROR] Expected edge [type] to have relation (-)-(0), but got (-)-(0). Dead edge. No nodes with this edge exist!
+2020/06/11 13:18:27 Schema Consistency Check ResultOK=[false]

@@ -1,8 +1,10 @@
 package dgsee
 
-// EdgeCardinality represents a single edge with cardinality of the relation
-// if edge isn't reverse, from should be "-"
+// EdgeCardinality represents a single edge with cardinality of the relation.
+// If edge isn't reverse, 'from' should be "-"
+//
 // example of correct from/to values: "0" "1" "2" "n" " 0..1" "0..2" "1..n" "1..5"
+//
 // examples: {"1", "movieCredit", "n"}, {"n", "parent", "2"}, {"1..n", "something", "n"},
 type EdgeCardinality struct {
 	From string
