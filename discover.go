@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"github.com/dgraph-io/dgo"
 	log "github.com/ppp225/lvlog"
@@ -28,8 +29,10 @@ func DiscoverEdges(ctx context.Context, dg *dgo.Dgraph) {
 func main() {
 var relations = []dgsee.EdgeCardinality{
 `
-	log.Infof("              | (C)ardinality |             | predicate name                 | nodes|(C)| edges |(C)|nodes")
-	log.Infof("-----------------------------------------------------------------------------------------------------------")
+	headerFormat := fmt.Sprintf("              |      (C)ardinality |             | %%-%ds | [nodes] |(C)| -edges- |(C)| [nodes] |", maxPredicateLen)
+	header := fmt.Sprintf(headerFormat, "[predicate name]")
+	log.Infof(header)
+	log.Infof(strings.Repeat("-", len(header)))
 	for _, r := range schema {
 		if r.Type != "uid" {
 			continue
