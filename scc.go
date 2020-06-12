@@ -51,7 +51,7 @@ func runSCC(ctx context.Context, txn *dgo.Txn, relations []EdgeCardinality) (ok 
 			ok = false
 			log.Errorf(formatErrorMsg(r.Edge, r.From, r.To, bmin, bmax, fmin, fmax, berr, ferr))
 		}
-		if fnodes == 0 && r.To[:1] != "0" || bnodes == 0 && r.From[:1] != "0" {
+		if fnodes == 0 || bnodes == 0 {
 			ok = false
 			log.Errorf(formatErrorNoRelationsMsg(r.Edge, r.From, r.To, bmin, bmax, fmin, fmax, berr, ferr))
 		}
@@ -113,5 +113,5 @@ func formatErrorMsg(edge, from, to, bmin, bmax, fmin, fmax string, berr, ferr in
 }
 func formatErrorNoRelationsMsg(edge, from, to, bmin, bmax, fmin, fmax string, berr, ferr int) (formatted string) {
 	bminmax, fminmax := formatCardinality(from, to, bmin, bmax, fmin, fmax)
-	return fmt.Sprintf("Expected edge [%s] to have relation (%s)-(%s), but got (%s)-(%s). It didn't exist, when it should.", edge, from, to, bminmax, fminmax)
+	return fmt.Sprintf("Expected edge [%s] to have relation (%s)-(%s), but got (%s)-(%s). Dead edge. No nodes with this edge exist!", edge, from, to, bminmax, fminmax)
 }
