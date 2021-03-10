@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dgraph-io/dgo"
+	"github.com/dgraph-io/dgo/v200"
 	log "github.com/ppp225/lvlog"
 )
 
