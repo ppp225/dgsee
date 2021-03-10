@@ -1,6 +1,6 @@
 module github.com/ppp225/dgsee
 
-go 1.15
+go 1.16
 
 require (
 	github.com/dgraph-io/dgo/v200 v200.0.0-20210308191403-7844be8b0a6a
